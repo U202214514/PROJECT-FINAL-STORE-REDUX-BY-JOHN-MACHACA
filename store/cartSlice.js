@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -17,31 +17,28 @@ const cartSlice = createSlice({
     },
     incrementItem: (state, action) => {
       const item = state.items.find(i => i.id === action.payload);
-      if (item) {
-        item.quantity++;
-        state.totalItems++;
-        state.totalCost += item.price;
-      }
+      item.quantity++;
+      state.totalItems++;
+      state.totalCost += item.price;
     },
     decrementItem: (state, action) => {
       const item = state.items.find(i => i.id === action.payload);
-      if (item) {
-        if (item.quantity > 1) {
-          item.quantity--;
-          state.totalItems--;
-          state.totalCost -= item.price;
-        } else {
-          state.items = state.items.filter(i => i.id !== action.payload);
-        }
+      if (item.quantity > 1) {
+        item.quantity--;
+        state.totalItems--;
+        state.totalCost -= item.price;
+      } else {
+        state.items = state.items.filter(i => i.id !== action.payload);
       }
     },
     removeItem: (state, action) => {
       const item = state.items.find(i => i.id === action.payload);
-      if (item) {
-        state.totalItems -= item.quantity;
-        state.totalCost -= item.price * item.quantity;
-        state.items = state.items.filter(i => i.id !== action.payload);
-      }
+      state.totalItems -= item.quantity;
+      state.totalCost -= item.price * item.quantity;
+      state.items = state.items.filter(i => i.id !== action.payload);
     }
   }
 });
+
+export const { addItem, incrementItem, decrementItem, removeItem } = cartSlice.actions;
+export default cartSlice.reducer;
