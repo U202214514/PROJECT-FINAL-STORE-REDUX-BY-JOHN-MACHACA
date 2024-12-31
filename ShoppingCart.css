@@ -1,0 +1,58 @@
+import { useSelector, useDispatch } from 'react-redux';
+
+function ShoppingCart() {
+  const { items, totalItems, totalCost } = useSelector(state => state.cart);
+  const dispatch = useDispatch();
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1 style={{ textAlign: 'center', color: '#2f4f4f' }}>Shopping Cart</h1>
+      <p>Total Items: {totalItems}</p>
+      <p>Total Cost: ${totalCost.toFixed(2)}</p>
+      <button 
+        style={{ margin: '10px', padding: '10px 20px', backgroundColor: '#4b8b3b', color: '#fff', border: 'none', borderRadius: '5px' }}
+        onClick={() => alert('Coming Soon')}
+      >
+        Checkout
+      </button>
+      <button 
+        style={{ margin: '10px', padding: '10px 20px', backgroundColor: '#8b9a9a', color: '#fff', border: 'none', borderRadius: '5px' }}
+        onClick={() => (window.location.href = '/products')}
+      >
+        Continue Shopping
+      </button>
+      <div>
+        {items.map(item => (
+          <div key={item.id} style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '5px', margin: '10px 0', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src={item.thumbnail} alt={item.name} style={{ maxWidth: '50px', height: '50px', objectFit: 'cover' }} />
+            <div style={{ flexGrow: 1 }}>
+              <h3>{item.name}</h3>
+              <p>${item.price}</p>
+              <p>Quantity: {item.quantity}</p>
+            </div>
+            <div>
+              <button 
+                style={{ margin: '5px', padding: '5px', backgroundColor: '#4b8b3b', color: '#fff', border: 'none', borderRadius: '3px' }}
+                onClick={() => dispatch(incrementItem(item.id))}
+              >
+                +
+              </button>
+              <button 
+                style={{ margin: '5px', padding: '5px', backgroundColor: '#8b9a9a', color: '#fff', border: 'none', borderRadius: '3px' }}
+                onClick={() => dispatch(decrementItem(item.id))}
+              >
+                -
+              </button>
+              <button 
+                style={{ margin: '5px', padding: '5px', backgroundColor: '#ff4c4c', color: '#fff', border: 'none', borderRadius: '3px' }}
+                onClick={() => dispatch(removeItem(item.id))}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
