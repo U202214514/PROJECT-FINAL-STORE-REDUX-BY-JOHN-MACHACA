@@ -1,0 +1,41 @@
+import { useDispatch } from 'react-redux';
+
+function ProductListing() {
+  const dispatch = useDispatch();
+  const products = [
+    { id: 1, name: 'Fern', price: 10, category: 'Indoor', thumbnail: '/fern.jpg' },
+    { id: 2, name: 'Succulent', price: 8, category: 'Succulent', thumbnail: '/succulent.jpg' },
+    { id: 3, name: 'Palm', price: 20, category: 'Indoor', thumbnail: '/palm.jpg' },
+    { id: 4, name: 'Cactus', price: 12, category: 'Succulent', thumbnail: '/cactus.jpg' },
+    { id: 5, name: 'Bonsai', price: 50, category: 'Indoor', thumbnail: '/bonsai.jpg' },
+    { id: 6, name: 'Aloe Vera', price: 15, category: 'Medicinal', thumbnail: '/aloe.jpg' }
+  ];
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1 style={{ textAlign: 'center', color: '#2f4f4f' }}>Our Plants</h1>
+      {['Indoor', 'Succulent', 'Medicinal'].map(category => (
+        <div key={category} style={{ margin: '20px 0' }}>
+          <h2 style={{ color: '#4b8b3b' }}>{category}</h2>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            {products
+              .filter(p => p.category === category)
+              .map(product => (
+                <div key={product.id} style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '5px', textAlign: 'center' }}>
+                  <img src={product.thumbnail} alt={product.name} style={{ maxWidth: '100px', height: '100px', objectFit: 'cover' }} />
+                  <h3>{product.name}</h3>
+                  <p>${product.price}</p>
+                  <button 
+                    style={{ padding: '5px 10px', backgroundColor: '#4b8b3b', color: '#fff', border: 'none', borderRadius: '3px' }}
+                    onClick={() => dispatch(addItem(product))}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
