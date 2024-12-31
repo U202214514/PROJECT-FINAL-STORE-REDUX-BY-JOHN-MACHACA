@@ -1,0 +1,15 @@
+// Landing Page
+function LandingPage() {
+  return (
+    <div style={{ backgroundImage: 'url(/background.jpg)', textAlign: 'center', padding: '50px' }}>
+      <h1 style={{ fontSize: '3em', color: '#2f4f4f' }}>Green Haven</h1>
+      <p style={{ fontSize: '1.2em', color: '#4b8b3b' }}>Welcome to Green Haven, your one-stop shop for beautiful houseplants.</p>
+      <button 
+        style={{ padding: '10px 20px', fontSize: '1em', backgroundColor: '#4b8b3b', color: '#fff', border: 'none', borderRadius: '5px' }}
+        onClick={() => (window.location.href = '/products')}
+      >
+        Get Started
+      </button>
+    </div>
+  );
+}
